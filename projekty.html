@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projekty — Rafał Pachnicki</title>
+<meta name="description" content="Projekty, w których brał udział Rafał Pachnicki: systemy dla bankowości, sektora publicznego, branży paliwowej, farmaceutycznej, ubezpieczeniowej i marketingu. Angular, TypeScript, .NET.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f2ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Projekty — Rafał Pachnicki">
+<link rel="alternate" hreflang="en" href="?lang=en">
+<link rel="alternate" hreflang="pl" href="?lang=pl">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b4693c'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='30' fill='white'%3ERP%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f2ec;
+    --surface: #fffdf9;
+    --ink: #1d1a17;
+    --muted: #6b635a;
+    --line: #e6ddd1;
+    --accent: #b4693c;
+    --accent-soft: #f3e3d6;
+    --shadow: 0 1px 2px rgb(60 40 20 / .04), 0 12px 32px -12px rgb(60 40 20 / .14);
+    --radius: 20px;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --bg: #141210;
+    --surface: #1c1a17;
+    --ink: #f1ebe3;
+    --muted: #a39a8f;
+    --line: #2e2a25;
+    --accent: #e0915f;
+    --accent-soft: #33251c;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 16px 40px -16px rgb(0 0 0 / .6);
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141210; --surface: #1c1a17; --ink: #f1ebe3; --muted: #a39a8f;
+      --line: #2e2a25; --accent: #e0915f; --accent-soft: #33251c;
+      --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 16px 40px -16px rgb(0 0 0 / .6);
+      color-scheme: dark;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font: 400 1rem/1.65 var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .skip { position: absolute; left: -999px; top: 1rem; background: var(--ink); color: var(--bg); padding: .5rem 1rem; border-radius: 8px; }
+  .skip:focus { left: 1rem; z-index: 10; }
+
+  .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+
+  /* Top bar */
+  .bar {
+    position: sticky; top: 0; z-index: 5;
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 1rem; }
+  .logo { font: 600 1.05rem var(--serif); text-decoration: none; letter-spacing: -.01em; }
+  .logo span { color: var(--accent); }
+  .bar nav { display: flex; gap: .25rem; align-items: center; }
+  .bar nav a { text-decoration: none; font-size: .9rem; color: var(--muted); padding: .4rem .75rem; border-radius: 999px; transition: background .2s, color .2s; }
+  .bar nav a:hover { color: var(--ink); background: var(--accent-soft); }
+  .icon-btn {
+    display: inline-grid; place-items: center; width: 38px; height: 38px;
+    border-radius: 999px; border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink); cursor: pointer; transition: transform .2s, border-color .2s;
+  }
+  .icon-btn:hover { border-color: var(--accent); transform: rotate(-12deg); }
+  .icon-btn svg { width: 18px; height: 18px; }
+  .lang-btn { font: 600 .78rem var(--sans); letter-spacing: .04em; }
+  .lang-btn:hover { transform: none; }
+  .more { margin: 2rem 0 0; }
+  .sun { display: none; }
+  :root[data-theme="dark"] .sun { display: block; }
+  :root[data-theme="dark"] .moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .sun { display: block; }
+    :root:not([data-theme="light"]) .moon { display: none; }
+  }
+
+  /* Hero */
+  .hero { padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(2.5rem, 6vw, 4.5rem); }
+  .hero .wrap { display: grid; grid-template-columns: 1.35fr .9fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 1.5px; background: currentColor; }
+  h1 {
+    font: 400 clamp(2.8rem, 7vw, 5.2rem)/1 var(--serif);
+    letter-spacing: -.035em; margin: 1.1rem 0 1.4rem;
+    font-variation-settings: "opsz" 144;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lead { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--muted); max-width: 36rem; margin: 0 0 2rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: .85rem 1.35rem; border-radius: 999px; font-weight: 500; font-size: .95rem;
+    text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s;
+  }
+  .btn svg { width: 18px; height: 18px; }
+  .btn-primary { background: var(--ink); color: var(--bg); }
+  .btn-primary:hover { color: var(--bg); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-ghost { border: 1px solid var(--line); background: var(--surface); }
+  .btn-ghost:hover { color: var(--ink); border-color: var(--accent); transform: translateY(-2px); }
+
+  .portrait { position: relative; justify-self: center; width: min(100%, 360px); }
+  .portrait::before {
+    content: ""; position: absolute; inset: 14px -14px -14px 14px;
+    border-radius: 28px; background: var(--accent-soft); border: 1px solid var(--line);
+  }
+  .portrait img {
+    position: relative; display: block; width: 100%; aspect-ratio: 15 / 16; object-fit: cover;
+    border-radius: 28px; box-shadow: var(--shadow);
+  }
+  .badge {
+    position: absolute; left: -18px; bottom: 28px;
+    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+    border-radius: 16px; padding: .7rem 1rem; display: flex; align-items: center; gap: .7rem; font-size: .85rem;
+  }
+  .badge b { font: 600 1.6rem/1 var(--serif); color: var(--accent); }
+  .badge span { color: var(--muted); line-height: 1.3; }
+
+  /* Sections */
+  section { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; }
+  .sec-head .num { font: 400 .95rem var(--serif); color: var(--accent); font-style: italic; }
+  h2 { font: 400 clamp(1.8rem, 3.6vw, 2.5rem)/1.1 var(--serif); letter-spacing: -.025em; margin: 0; }
+  h3 { font: 600 1.15rem/1.3 var(--sans); margin: 0; letter-spacing: -.01em; }
+
+  .contact-strip {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  }
+  .contact-strip a, .contact-strip div {
+    background: var(--surface); padding: 1.1rem 1.25rem; display: flex; gap: .8rem; align-items: center;
+    text-decoration: none; min-width: 0; transition: background .2s;
+  }
+  .contact-strip a:hover { background: var(--accent-soft); color: var(--ink); }
+  .contact-strip .ct { display: block; padding: 0; background: none; }
+  .contact-strip svg { flex: none; width: 20px; height: 20px; color: var(--accent); }
+  .contact-strip small { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .contact-strip span { display: block; font-size: .92rem; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+  .job {
+    display: grid; grid-template-columns: 200px 1fr; gap: 2rem;
+    padding: 1.75rem 0; border-top: 1px solid var(--line);
+  }
+  .job:last-child { border-bottom: 1px solid var(--line); }
+  .when { font-size: .9rem; color: var(--muted); }
+  .when b { display: block; font: 600 1.05rem var(--serif); color: var(--ink); margin-bottom: .15rem; }
+  .company { color: var(--accent); font-weight: 500; margin: .15rem 0 .8rem; }
+  .job ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .5rem; }
+  .job li { position: relative; padding-left: 1.3rem; color: var(--muted); }
+  .job li::before { content: ""; position: absolute; left: 0; top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: .7; }
+  .tag { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-left: .5rem; vertical-align: middle; }
+
+  /* Skills */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.6rem; box-shadow: var(--shadow);
+  }
+  .card h3 { margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
+  .card h3 svg { width: 20px; height: 20px; color: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; margin: 0; padding: 0; }
+  .chips li {
+    font-size: .88rem; padding: .38rem .8rem; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--bg); transition: border-color .2s, transform .2s;
+  }
+  .chips li:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .chips.strong li:nth-child(-n+3) { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; }
+  .list li { display: flex; gap: .75rem; align-items: flex-start; }
+  .list li::before { content: "→"; color: var(--accent); flex: none; }
+
+  .lang { display: grid; gap: 1rem; }
+  .lang div { display: grid; gap: .4rem; }
+  .lang .row { display: flex; justify-content: space-between; font-size: .95rem; }
+  .lang .row span:last-child { color: var(--muted); }
+  .meter { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
+  .meter i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+
+  .edu { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .edu .year { font: 400 3rem/1 var(--serif); color: var(--accent); letter-spacing: -.03em; }
+  .edu p { margin: .3rem 0 0; color: var(--muted); }
+
+  /* Footer */
+  footer { padding: 4rem 0 3rem; }
+  .final {
+    background: var(--ink); color: var(--bg); border-radius: 28px;
+    padding: clamp(2rem, 5vw, 3.5rem); display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;
+  }
+  .final h2 { color: var(--bg); }
+  .final p { margin: .6rem 0 0; opacity: .7; }
+  .final .btn { background: var(--accent); color: #fff; }
+  .final .btn:hover { color: #fff; transform: translateY(-2px); }
+  .copy { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 2rem; }
+
+  /* Reveal on scroll */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .hero .reveal { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+    .hero .reveal:nth-child(2) { animation-delay: .12s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .portrait { order: -1; width: min(70%, 280px); }
+    .contact-strip { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; }
+    .job { grid-template-columns: 1fr; gap: .75rem; }
+    .bar nav a.hide-sm { display: none; }
+  }
+  @media (max-width: 480px) {
+    .contact-strip { grid-template-columns: 1fr; }
+    .badge { left: -8px; }
+  }
+
+  /* Print = clean one-column CV */
+  @media print {
+    :root { --bg: #fff; --surface: #fff; --ink: #000; --muted: #333; --line: #ddd; --shadow: none; }
+    .bar, .cta, footer .final .btn, .badge, .portrait::before, .skip { display: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    section, .hero { padding: 1rem 0; }
+    .portrait { width: 140px; }
+    .card, .job { break-inside: avoid; }
+    .final { background: none; color: #000; padding: 0; }
+    .final h2 { color: #000; }
+    a { text-decoration: none; }
+  }
+</style>
+
+<style>
+  .page-hero { padding: clamp(3rem, 7vw, 5.5rem) 0 2rem; }
+  .page-hero h1 { margin-top: 1rem; }
+  .back { display: inline-flex; align-items: center; gap: .4rem; font-size: .9rem; color: var(--muted); text-decoration: none; margin-bottom: 1.5rem; }
+  .back:hover { color: var(--accent); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: 2.5rem; }
+  .stats div { background: var(--surface); padding: 1.3rem 1.4rem; }
+  .stats b { display: block; font: 400 2.4rem/1 var(--serif); color: var(--accent); letter-spacing: -.03em; }
+  .stats span { font-size: .88rem; color: var(--muted); }
+  .filters { position: sticky; top: 64px; z-index: 4; padding: .9rem 0; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .filters .wrap { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  .filters .lbl { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-right: .4rem; }
+  .fbtn { font: 500 .88rem var(--sans); padding: .42rem .9rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; transition: all .2s; }
+  .fbtn:hover { border-color: var(--accent); }
+  .fbtn.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .employer { padding: clamp(2rem, 5vw, 3.5rem) 0; }
+  .employer + .employer { border-top: 1px solid var(--line); }
+  .employer.empty { display: none; }
+  .emp-head { display: grid; grid-template-columns: 1fr 1.3fr; gap: 2rem; align-items: end; margin-bottom: 1.75rem; }
+  .period { font-size: .85rem; font-weight: 600; letter-spacing: .08em; color: var(--accent); margin: 0 0 .4rem; }
+  .role { margin: .4rem 0 0; font-weight: 500; }
+  .about { margin: 0; color: var(--muted); }
+  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .proj { display: flex; flex-direction: column; gap: .2rem; transition: transform .25s, border-color .25s, opacity .3s; }
+  .proj:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .proj[hidden] { display: none; }
+  .proj:only-child { grid-column: 1 / -1; }
+  .proj-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; }
+  .pnum { font: italic 400 1rem var(--serif); color: var(--accent); }
+  .proj .tag { margin: 0; }
+  .proj h3 { font: 400 1.4rem/1.25 var(--serif); letter-spacing: -.015em; margin-bottom: .5rem; }
+  .desc { margin: 0 0 1rem; color: var(--muted); }
+  .proj h4 { font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; color: var(--ink); margin: 0 0 .6rem; }
+  .tasks { margin: 0 0 1.25rem; padding: 0; list-style: none; display: grid; gap: .45rem; }
+  .tasks li { position: relative; padding-left: 1.3rem; font-size: .95rem; }
+  .tasks li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+  .chips.small { margin-top: auto; padding-top: 1rem; border-top: 1px dashed var(--line); }
+  .chips.small li { font-size: .78rem; padding: .25rem .65rem; }
+  .chips.small li.hit { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .stack { margin: 0; display: grid; gap: 0; }
+  .srow { display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; padding: 1.1rem 0; border-top: 1px solid var(--line); }
+  .srow:last-child { border-bottom: 1px solid var(--line); }
+  .srow dt { font-weight: 600; }
+  .srow dd { margin: 0; color: var(--muted); }
+  .note { font-size: .88rem; color: var(--muted); margin-top: 1rem; }
+  @media (max-width: 860px) {
+    .proj-grid, .emp-head { grid-template-columns: 1fr; }
+    .emp-head { gap: .75rem; }
+    .filters .wrap { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .filters .wrap::-webkit-scrollbar { display: none; }
+    .fbtn { flex: none; }
+    .filters .lbl { flex: none; }
+    .srow { grid-template-columns: 1fr; gap: .3rem; }
+    .stats { grid-template-columns: 1fr 1fr 1fr; }
+    .stats b { font-size: 1.8rem; }
+  }
+  @media print { .filters { display: none; } .proj { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-en="Skip to content">Przejdź do treści</a>
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="index.html">Rafał<span>.</span>Pachnicki</a>
+    <nav aria-label="Nawigacja główna" data-en-aria="Main navigation">
+      <a href="index.html" data-en="CV">CV</a>
+      <a href="projekty.html" aria-current="page" data-en="Projects">Projekty</a>
+            <a href="index.html#kontakt" class="hide-sm" data-en="Contact">Kontakt</a>
+      <button class="icon-btn lang-btn" id="lang" type="button" lang="en" aria-label="Switch to English" data-en-aria="Przełącz na polski" data-en="PL">EN</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Przełącz motyw jasny/ciemny" data-en-aria="Toggle light/dark theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap reveal">
+      <a class="back" href="index.html"><span aria-hidden="true">←</span> <span data-en="Back to CV">Wróć do CV</span></a><br>
+      <span class="eyebrow" data-en="Project history · 2011–2026">Historia projektów · 2011–2026</span>
+      <h1 data-en="Projects I’ve <em>built</em>">Projekty, które <em>współtworzyłem</em></h1>
+      <p class="lead" data-en="From requirements and process modelling, through architecture, to implementing logic and interfaces, integrating systems and testing. Here are the projects I worked on – what they were about and what I was responsible for.">Od analizy wymagań i modelowania procesów, przez architekturę, po implementację logiki i interfejsów, integracje systemów i testy. Poniżej projekty, w których brałem udział – o czym były i za co odpowiadałem.</p>
+      <div class="stats">
+        <div><b>15</b><span data-en="projects">projektów</span></div>
+        <div><b>5</b><span data-en="companies">firm</span></div>
+        <div><b>14+</b><span data-en="years of experience">lat doświadczenia</span></div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="filters" aria-label="Filtruj projekty według technologii" data-en-aria="Filter projects by technology">
+    <div class="wrap">
+      <span class="lbl" data-en="Technology">Technologia</span><button type="button" class="fbtn on" data-f="all" data-en="All" aria-pressed="true">Wszystkie</button><button type="button" class="fbtn" data-f="angular" aria-pressed="false">Angular</button><button type="button" class="fbtn" data-f="typescript" aria-pressed="false">TypeScript</button><button type="button" class="fbtn" data-f="net" aria-pressed="false">.NET</button><button type="button" class="fbtn" data-f="sql" aria-pressed="false">SQL</button><button type="button" class="fbtn" data-f="azure" aria-pressed="false">Azure</button><button type="button" class="fbtn" data-f="php" aria-pressed="false">PHP</button>
+      <span class="lbl" style="margin-left:auto" aria-live="polite"><span id="count">15</span> <span data-en="shown">widocznych</span></span>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <section class="employer" aria-labelledby="c1">
+      <div class="emp-head reveal">
+        <div>
+          <p class="period">05.2025 – 04.2026</p>
+          <h2 id="c1">Comarch</h2>
+          <p class="role">Frontend Developer</p>
+        </div>
+        <p class="about" data-en="Design, delivery and development of an Angular and TypeScript application.">Projektowanie, realizacja i rozwój aplikacji opartej o Angular i TypeScript.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj card reveal" data-tags="angular typescript">
+          <div class="proj-top"><span class="pnum">01</span></div>
+          <h3 data-en="New PUE ZUS platform">Nowy system PUE ZUS</h3>
+          <p class="desc" data-en="A new version of PUE ZUS – the e-services platform of the Polish Social Insurance Institution.">Nowa wersja istniejącego systemu PUE ZUS – platformy usług elektronicznych Zakładu Ubezpieczeń Społecznych.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Designing and extending the frontend layer based on the prepared business analysis.">Projektowanie i rozbudowa aplikacji w warstwie frontendowej na podstawie przygotowanej wcześniej analizy.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>Angular</li><li>Angular Signals</li><li>TypeScript</li><li>RxJS</li><li>PrimeNG</li><li>HTML</li><li>CSS</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="employer" aria-labelledby="c2">
+      <div class="emp-head reveal">
+        <div>
+          <p class="period">01.2024 – 04.2025</p>
+          <h2 id="c2">ITMAGINATION</h2>
+          <p class="role" data-en="Software Engineer">Inżynier oprogramowania</p>
+        </div>
+        <p class="about" data-en="Design, delivery and development of applications built on .NET, Angular and TypeScript.">Projektowanie, realizacja i rozwój aplikacji opartych o .NET, Angular i TypeScript.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj card reveal" data-tags="angular typescript net sql">
+          <div class="proj-top"><span class="pnum">02</span></div>
+          <h3 data-en="GDPR compliance system for the banking sector">System realizujący wymogi RODO (GDPR) dla sektora bankowego</h3>
+          <p class="desc" data-en="A large project integrating with every system in the bank. It collects and aggregates data about customers and employees. An Angular application shows in which systems a given person’s data is stored and exactly what it contains. It also supports anonymisation – sending deletion requests to every system holding the data.">Duży projekt integrujący się ze wszystkimi systemami banku. Pobiera i agreguje dane o klientach i pracownikach. Aplikacja w Angularze pokazuje, w których systemach znajdują się dane wybranej osoby i jakie dokładnie informacje tam są. Umożliwia też anonimizację – wysłanie do systemów przechowujących dane prośby o ich usunięcie.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Designing and extending both frontend and backend layers based on the prepared analysis.">Projektowanie i rozbudowa aplikacji w warstwie frontendowej i backendowej na podstawie przygotowanej analizy.</li><li data-en="Designing multiple integration methods: SOAP, stored procedures, REST API, e-mail.">Zaprojektowanie różnych sposobów integracji: SOAP, procedury składowane, REST API, e-mail.</li><li data-en="Building the application for browsing the aggregated data.">Napisanie aplikacji do przeglądania agregatów danych.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>Angular</li><li>TypeScript</li><li>RxJS</li><li>PrimeNG</li><li>.NET</li><li>MS SQL</li><li>HTML</li><li>CSS</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="employer" aria-labelledby="c3">
+      <div class="emp-head reveal">
+        <div>
+          <p class="period">10.2022 – 12.2023</p>
+          <h2 id="c3">Lemisoft</h2>
+          <p class="role" data-en="Software Engineer">Inżynier oprogramowania</p>
+        </div>
+        <p class="about" data-en="Design, delivery and development of Angular and TypeScript applications.">Projektowanie, realizacja i rozwój aplikacji opartych o Angular i TypeScript.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj card reveal" data-tags="angular typescript">
+          <div class="proj-top"><span class="pnum">03</span></div>
+          <h3 data-en="Application management system for the Chief Sanitary Inspectorate">System zarządzania wnioskami dla Głównego Inspektoratu Sanitarnego</h3>
+          <p class="desc" data-en="A solution for the Food Safety Department where companies file applications to bring new food products to market. The form depends on the product type and purpose. Micro-frontend architecture.">Rozwiązanie dla departamentu bezpieczeństwa żywności, w którym firmy wypełniają wnioski o wprowadzenie nowych produktów spożywczych na rynek. Rodzaj wniosku zależy od typu i przeznaczenia produktu. Architektura oparta o mikrofrontendy.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Designing and extending the frontend application.">Projektowanie i rozbudowa aplikacji w warstwie frontendowej.</li><li data-en="Integration with the National Node (Węzeł Krajowy) – sign-in via ePUAP and other methods.">Integracja z Węzłem Krajowym – logowanie do systemu przez ePUAP i inne metody.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>Angular</li><li>TypeScript</li><li>RxJS</li><li>Angular Material</li><li data-en="Micro-frontends">Mikrofrontendy</li><li>HTML</li><li>CSS</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="employer" aria-labelledby="c12">
+      <div class="emp-head reveal">
+        <div>
+          <p class="period">05.2013 – 09.2022</p>
+          <h2 id="c12">ITMAGINATION</h2>
+          <p class="role" data-en="Software Engineer">Inżynier oprogramowania</p>
+        </div>
+        <p class="about" data-en="Building software in .NET and JavaScript, business process modelling, architecture design and shared base classes and services. Direct client contact and, in one project, team coordination.">Współtworzenie oprogramowania w .NET i JavaScript, modelowanie procesów biznesowych, projektowanie architektury, rozwój wspólnych klas bazowych i serwisów. Kontakt z klientem, a w jednym z projektów także koordynacja pracy zespołu.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj card reveal" data-tags="angular net sql">
+          <div class="proj-top"><span class="pnum">04</span></div>
+          <h3 data-en="Marketing campaign management platform">Platforma do zarządzania kampaniami marketingowymi</h3>
+          <p class="desc" data-en="A system for managing marketing campaigns, integrated with external advertising and analytics platforms and tag management tools.">System wspierający zarządzanie kampaniami marketingowymi, zintegrowany z zewnętrznymi platformami reklamowymi, analitycznymi i narzędziami do zarządzania tagami.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Working with the client, gathering and structuring requirements, writing user stories.">Współpraca z klientem, zbieranie i porządkowanie wymagań, przygotowywanie User Stories.</li><li data-en="Business process modelling; designing and implementing the system architecture.">Modelowanie procesów biznesowych oraz opracowanie i implementacja architektury systemu.</li><li data-en="Building base classes and services.">Tworzenie klas bazowych i serwisów.</li><li data-en="Integrations with Google Ads, Campaign Manager, Google Analytics, Display &amp; Video 360, Google Tag Manager, Adform and OnAudience.">Integracja z Google Ads, Campaign Manager, Google Analytics, Display & Video 360, Google Tag Manager, Adform i OnAudience.</li><li data-en="Setting up the CI/CD pipeline.">Konfiguracja procesu CI/CD.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>.NET Core</li><li>ASP.NET Core</li><li>Angular</li><li>PostgreSQL</li><li>Identity Server</li><li>Entity Framework</li><li>MediatR</li><li>Redis</li><li>RabbitMQ</li><li>NLog</li><li>Git</li><li>NUnit</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="angular net sql">
+          <div class="proj-top"><span class="pnum">05</span></div>
+          <h3 data-en="Insurance pricing survey system">System ankiet do wyceny ubezpieczeń</h3>
+          <p class="desc" data-en="Surveys feeding an algorithm that proposes motor insurance prices (third-party liability and comprehensive). Integrated with many systems, including the Insurance Guarantee Fund (UFG). Surveys were split into strictly validated, interdependent steps.">Ankiety, na podstawie których powstał algorytm proponowania cen ubezpieczeń OC i AC. System integrował się z wieloma systemami, w tym z Ubezpieczeniowym Funduszem Gwarancyjnym (UFG). Ankiety były podzielone na ściśle walidowane, powiązane ze sobą kroki.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Building base classes and services.">Tworzenie klas bazowych i serwisów.</li><li data-en="Integrations with the internal Identity Server, UFG and the data collection system.">Integracja z wewnętrznym Identity Server, UFG i systemem zbierania danych.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>.NET Core</li><li>ASP.NET Core</li><li>Angular</li><li>MS SQL</li><li>Identity Server</li><li>Entity Framework Core</li><li>Redis</li><li>NLog</li><li>Git</li><li>NUnit</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="angular net sql">
+          <div class="proj-top"><span class="pnum">06</span></div>
+          <h3 data-en="Document management system (DMS) for a large corporation">System obiegu dokumentów (DMS) dla dużej korporacji</h3>
+          <p class="desc" data-en="An extensive document workflow system – from sales and purchase invoices, through confidential company data, to marketing materials. Split into modules with a dedicated workflow per document type, plus an admin module for managing permissions at every step.">Rozbudowany system obiegu dokumentów – od faktur sprzedażowych i zakupowych, przez poufne dane firmy, po materiały marketingowe. Podzielony na moduły z osobnym workflow dla każdego rodzaju dokumentu oraz z modułem administracyjnym do zarządzania uprawnieniami na każdym kroku.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Building base classes and services.">Tworzenie klas bazowych i serwisów.</li><li data-en="Integrations with internal network resources, internal mail and Active Directory.">Integracja z wewnętrznymi zasobami sieciowymi, pocztą wewnętrzną i Active Directory.</li><li data-en="Implementing features based on analysts’ diagrams.">Realizacja zadań na podstawie diagramów przygotowanych przez analityków.</li><li data-en="Supporting the team at every stage of the project.">Wspieranie zespołu na każdym etapie projektu.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>.NET Core</li><li>ASP.NET Core</li><li>Angular</li><li>MS SQL</li><li>Entity Framework Core</li><li>Redis</li><li>NLog</li><li>Git</li><li>NUnit</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="angular typescript net sql azure">
+          <div class="proj-top"><span class="pnum">07</span><span class="tag" data-en="Lead role">Rola wiodąca</span></div>
+          <h3 data-en="CMS, website, mobile app and REST API">CMS, strona WWW, aplikacja mobilna i REST API</h3>
+          <p class="desc" data-en="An integrated solution spanning a CMS, a website, a mobile app and a REST API layer. The project covered architecture and the setup and maintenance of cloud environments.">Zintegrowane rozwiązanie obejmujące system CMS, serwis internetowy, aplikację mobilną i warstwę REST API. Projekt obejmował rozwój architektury oraz konfigurację i utrzymanie środowisk chmurowych.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Designing and implementing the system architecture; full-scope client collaboration.">Opracowanie i implementacja architektury systemu oraz pełna współpraca z klientem.</li><li data-en="Setting up CI/CD, Microsoft Azure environments and Git Flow version control.">Konfiguracja CI/CD, środowisk Microsoft Azure i kontroli wersji w modelu Git Flow.</li><li data-en="Unit and integration testing of business logic.">Testy jednostkowe i integracyjne logiki biznesowej.</li><li data-en="Overseeing team progress and assigning tasks.">Nadzorowanie postępów zespołu i rozdzielanie zadań.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>.NET Core</li><li>ASP.NET Core</li><li>C#</li><li>Entity Framework Core</li><li>SQL Server</li><li>PostgreSQL</li><li>Angular</li><li>TypeScript</li><li>MediatR</li><li>NLog</li><li>Git</li><li>NUnit</li><li>Azure DevOps</li><li>Azure ExpressRoute</li><li>Azure App Service</li><li>Docker</li><li>Load Balancer</li><li>API Gateway</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="angular net sql">
+          <div class="proj-top"><span class="pnum">08</span></div>
+          <h3 data-en="Car sharing – end-to-end solution with a mobile app">Carsharing – kompleksowe rozwiązanie z aplikacją mobilną</h3>
+          <p class="desc" data-en="A system for a per-minute car rental company. I was responsible for integrating with the cars’ on-board computers and live monitoring of location, speed, sensor status, locking and engine start. The data drove alerts, notifications and reports supporting rental operations.">System dla firmy wynajmującej auta na minuty. Odpowiadałem za integrację z komputerami samochodów i bieżące monitorowanie parametrów: lokalizacji, prędkości, stanu czujników, otwarcia i zamknięcia auta czy uruchomienia silnika. Na tej podstawie system generował alerty, powiadomienia i raporty wspierające zarządzanie wynajmem.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Building base classes and services.">Tworzenie klas bazowych i serwisów.</li><li data-en="Integration with on-board computers and data collection.">Integracja z komputerami aut i zbieranie danych.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>.NET Core</li><li>ASP.NET Core</li><li>Angular</li><li>MS SQL</li><li>Identity Server</li><li>Entity Framework Core</li><li>Redis</li><li>NLog</li><li>Git</li><li>NUnit</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="net sql">
+          <div class="proj-top"><span class="pnum">09</span></div>
+          <h3 data-en="ERP system">System ERP</h3>
+          <p class="desc" data-en="Development of an ERP system – implementing the UI and business logic based on analytical documentation and the existing infrastructure.">Rozwój systemu ERP – implementacja interfejsu użytkownika i logiki biznesowej w oparciu o dokumentację analityczną i istniejącą infrastrukturę.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Implementing screens and business logic.">Implementacja ekranów i logiki biznesowej.</li><li data-en="Designing the database architecture.">Przygotowanie architektury bazy danych.</li><li data-en="Integrating modules via the NServiceBus message bus.">Integracja modułów przez szynę NServiceBus.</li><li data-en="Unit and integration testing.">Testy jednostkowe i integracyjne.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>C#</li><li>ASP.NET</li><li>SQL Server</li><li>NHibernate</li><li>Castle Windsor</li><li>Knockout</li><li>jQuery</li><li>NServiceBus</li><li>NLog</li><li>Git</li><li>NUnit</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="net sql">
+          <div class="proj-top"><span class="pnum">10</span></div>
+          <h3 data-en="Loyalty card system for a fuel industry leader">System kart rabatowych dla lidera branży paliwowej</h3>
+          <p class="desc" data-en="A system handling discount card processes. Work covered feature implementation, module integration and presenting milestones to the client.">System obsługujący procesy związane z kartami rabatowymi. Prace obejmowały implementację funkcjonalności, integrację modułów i prezentowanie klientowi kolejnych etapów.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Implementing screens and business logic.">Implementacja ekranów i logiki biznesowej.</li><li data-en="Database architecture and module integration via NServiceBus.">Architektura bazy danych i integracja modułów przez NServiceBus.</li><li data-en="Unit and integration testing; milestone demos for the client.">Testy jednostkowe i integracyjne oraz prezentacje etapów u klienta.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>C#</li><li>ASP.NET</li><li>SQL Server</li><li>NHibernate</li><li>Castle Windsor</li><li>Knockout</li><li>jQuery</li><li>NServiceBus</li><li>WCF</li><li>NLog</li><li>Git</li><li>NUnit</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="net sql">
+          <div class="proj-top"><span class="pnum">11</span></div>
+          <h3 data-en="Factoring system for a credit information bureau">System faktoringowy dla Biura Informacji Gospodarczej</h3>
+          <p class="desc" data-en="Development of a factoring system with external integrations, including an SMS gateway and web services.">Rozwój systemu faktoringowego z integracjami zewnętrznymi, w tym bramką SMS i usługami webowymi.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Implementing the UI and business logic.">Implementacja interfejsu i logiki biznesowej.</li><li data-en="Database architecture and module integration via NServiceBus.">Architektura bazy danych i integracja modułów przez NServiceBus.</li><li data-en="Integrating the SMS gateway and external web services.">Integracja bramki SMS i zewnętrznych serwisów webowych.</li><li data-en="Unit and integration testing; milestone demos for the client.">Testy jednostkowe i integracyjne oraz prezentacje etapów klientowi.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>C#</li><li>ASP.NET MVC</li><li>SQL Server</li><li>NHibernate</li><li>Castle Windsor</li><li>Knockout</li><li>jQuery</li><li>NServiceBus</li><li>WCF</li><li>NLog</li><li>Git</li><li>NUnit</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="net sql">
+          <div class="proj-top"><span class="pnum">12</span></div>
+          <h3 data-en="Support and development for a pharmaceutical industry leader">Utrzymanie i rozwój systemów dla lidera branży farmaceutycznej</h3>
+          <p class="desc" data-en="Ongoing support and maintenance of around 30 internal applications: fleet management, fuel invoice settlement, product sample inventory and IT help desk.">Bieżące wsparcie i utrzymanie około 30 aplikacji wewnętrznych: zarządzanie flotą samochodów, rozliczanie faktur za paliwo, zarządzanie stanem magazynowym próbek produktów, IT help desk.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Handling tickets on a dedicated platform and actively monitoring applications.">Obsługa zgłoszeń na dedykowanej platformie i aktywny monitoring aplikacji.</li><li data-en="Liaising with the client and distributors.">Kontakt z klientem i dystrybutorami.</li><li data-en="Analysing and resolving issues or routing them to the right people.">Analiza i rozwiązywanie problemów lub kierowanie ich do właściwych osób.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>C#</li><li>ASP.NET</li><li>SQL Server</li><li>Entity Framework</li><li>jQuery</li><li>NLog</li><li>Team Foundation Server</li><li>NUnit</li><li>OLAP</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="employer" aria-labelledby="c14">
+      <div class="emp-head reveal">
+        <div>
+          <p class="period">10.2011 – 03.2013</p>
+          <h2 id="c14">SW Research</h2>
+          <p class="role" data-en="Software Engineer">Inżynier oprogramowania</p>
+        </div>
+        <p class="about" data-en="Designing, building and developing applications in PHP, JavaScript and C#, coordinating projects, database design, testing and quality assurance.">Projektowanie, realizacja i rozwój aplikacji w PHP, JavaScript i C#, koordynowanie projektów, projektowanie baz danych oraz testowanie i zapewnianie jakości.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj card reveal" data-tags="sql php">
+          <div class="proj-top"><span class="pnum">13</span><span class="tag" data-en="Lead role">Rola wiodąca</span></div>
+          <h3>Students Watch</h3>
+          <p class="desc" data-en="An online survey builder with a companion website. An extensive system for building networks of interdependent questions and collecting survey data for internal use.">Aplikacja do tworzenia ankiet internetowych wraz z powiązaną stroną WWW. Rozbudowany system tworzenia sieci zależnych od siebie pytań i zbierania danych z ankiet na użytek wewnętrzny.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Designing the whole system end to end, including the technology choice.">Zaprojektowanie całego systemu od A do Z, łącznie z wyborem technologii.</li><li data-en="Building and developing the survey builder.">Implementacja i rozwój aplikacji do tworzenia ankiet.</li><li data-en="Building and developing the website.">Implementacja i rozwój strony internetowej.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>PHP</li><li>Zend Framework</li><li>MySQL</li><li>JavaScript</li><li>jQuery</li></ul>
+        </article>
+        <article class="proj card reveal" data-tags="net">
+          <div class="proj-top"><span class="pnum">14</span></div>
+          <h3>SWExplorer</h3>
+          <p class="desc" data-en="A desktop application generating reports from online research: it wrote plain-language summaries of results, added charts and assembled a print-ready document.">Aplikacja desktopowa generująca raporty z badań internetowych: tworzyła opisy słowne wyników, dodawała wykresy i składała gotowy do druku dokument.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Building and developing the reporting application.">Implementacja i rozwój aplikacji raportującej.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>C#</li><li>Entity Framework</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="employer" aria-labelledby="c15">
+      <div class="emp-head reveal">
+        <div>
+          <p class="period">07.2011 – 09.2011</p>
+          <h2 id="c15">Siemens IT Solutions and Services</h2>
+          <p class="role">Software Developer</p>
+        </div>
+        <p class="about" data-en="Designing and developing .NET applications, database design and extending existing solutions.">Projektowanie i rozwój aplikacji .NET, projektowanie baz danych oraz rozbudowa istniejących rozwiązań.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj card reveal" data-tags="net">
+          <div class="proj-top"><span class="pnum">15</span></div>
+          <h3 data-en="Internal applications and tools">Aplikacje i narzędzia wewnętrzne</h3>
+          <p class="desc" data-en="Tools supporting ticket handling and internal work: a server log parser, a RIA application for Siemens product complaints, and smaller utilities such as an HTML and JavaScript editor.">Rozwiązania wspierające obsługę zgłoszeń i pracę wewnętrzną: parser logów serwera, aplikacja RIA do zgłaszania reklamacji produktów Siemens oraz mniejsze narzędzia, m.in. edytor HTML i JavaScript.</p>
+          <h4 data-en="My contribution">Mój udział</h4>
+          <ul class="tasks"><li data-en="Designing, building and extending .NET applications.">Projektowanie, rozwój i rozbudowa aplikacji .NET.</li><li data-en="Database design.">Projektowanie baz danych.</li><li data-en="Developing the complaints RIA app with a reports and documents module.">Rozwój aplikacji RIA do reklamacji z modułem raportów i dokumentów.</li><li data-en="Building internal tools.">Tworzenie narzędzi na wewnętrzny użytek.</li></ul>
+          <ul class="chips small" aria-label="Technologie" data-en-aria="Technologies"><li>ASP.NET</li><li>ADO.NET</li><li>Entity Framework</li><li>PowerShell</li><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <section id="stack">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="num">∑</span><h2 data-en="Technologies &amp; tools">Technologie i narzędzia</h2></div>
+      <dl class="stack reveal"><div class="srow"><dt data-en="Languages &amp; frameworks">Języki i frameworki</dt><dd>C#, .NET Framework, .NET Core, ASP.NET, ASP.NET Core, ASP.NET MVC, PHP, JavaScript, TypeScript, Angular, HTML, CSS, XAML, PowerShell</dd></div><div class="srow"><dt data-en="Databases">Bazy danych</dt><dd>Microsoft SQL Server, PostgreSQL, MySQL / MariaDB</dd></div><div class="srow"><dt data-en="Data access &amp; integration">Dostęp do danych i integracje</dt><dd>Entity Framework / EF Core, NHibernate, WCF, NServiceBus, RabbitMQ, Redis, MediatR, Identity Server</dd></div><div class="srow"><dt data-en="Cloud &amp; delivery">Chmura i dostarczanie</dt><dd>Microsoft Azure, Azure DevOps, App Service, Load Balancer, API Gateway, ExpressRoute, Docker, Git, Git Flow, CI/CD, Team Foundation Server</dd></div><div class="srow"><dt data-en="Testing &amp; quality">Testowanie i jakość</dt><dd>NUnit, Selenium, Protractor, Jasmine, Karma</dd></div><div class="srow"><dt data-en="Tools &amp; analysis">Narzędzia i analiza</dt><dd>Visual Studio, Visual Studio Code, ReSharper, Enterprise Architect, Balsamiq, Visio, NLog, OLAP</dd></div></dl>
+      <p class="note reveal" data-en="A combined list of technologies from all projects – not every item was used in every project.">Zestawienie zbiorcze z wszystkich projektów – nie każda pozycja była używana w każdym z nich.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="final reveal">
+      <div>
+        <h2 data-en="Let’s talk about your project">Porozmawiajmy o Twoim projekcie</h2>
+        <p data-en="I’m open to new frontend challenges.">Jestem otwarty na nowe wyzwania we frontendzie.</p>
+      </div>
+      <a class="btn" href="mailto:rafal.pachnicki@outlook.com">rafal.pachnicki@outlook.com</a>
+    </div>
+    <p class="copy">© <span id="y">2026</span> Rafał Pachnicki</p>
+  </div>
+</footer>
+
+<script>
+  (() => {
+    const root = document.documentElement;
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    if (saved) root.dataset.theme = saved;
+    document.getElementById('theme').addEventListener('click', () => {
+      const dark = root.dataset.theme
+        ? root.dataset.theme === 'dark'
+        : matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = dark ? 'light' : 'dark';
+      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+    });
+    const META = {
+      pl: { title: 'Projekty — Rafał Pachnicki', desc: document.querySelector('meta[name=description]').content },
+      en: { title: 'Projects — Rafał Pachnicki', desc: 'Projects by Rafał Pachnicki: banking, public sector, fuel, pharmaceutical, insurance and marketing systems built with Angular, TypeScript and .NET.' }
+    };
+    const tEls = [...document.querySelectorAll('[data-en]')];
+    tEls.forEach(el => el.dataset.pl = el.innerHTML);
+    const aEls = [...document.querySelectorAll('[data-en-aria]')];
+    aEls.forEach(el => el.dataset.plAria = el.getAttribute('aria-label'));
+    const setLang = (lang) => {
+      root.lang = lang;
+      tEls.forEach(el => el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.pl);
+      aEls.forEach(el => el.setAttribute('aria-label', lang === 'en' ? el.dataset.enAria : el.dataset.plAria));
+      const btn = document.getElementById('lang');
+      btn.setAttribute('lang', lang === 'en' ? 'pl' : 'en');
+      document.title = META[lang].title;
+      document.querySelector('meta[name=description]').content = META[lang].desc;
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+      const url = new URL(location.href);
+      if (url.protocol.startsWith('http')) { url.searchParams.set('lang', lang); history.replaceState(null, '', url); }
+    };
+    let lang = new URLSearchParams(location.search).get('lang');
+    if (!lang) { try { lang = localStorage.getItem('lang'); } catch (e) {} }
+    if (!lang) lang = (navigator.language || 'pl').toLowerCase().startsWith('pl') ? 'pl' : 'en';
+    if (lang === 'en') setLang('en');
+    document.getElementById('lang').addEventListener('click', () => setLang(root.lang === 'en' ? 'pl' : 'en'));
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(el => io.observe(el));
+    } else els.forEach(el => el.classList.add('in'));
+  })();
+</script>
+
+<script>
+  (() => {
+    const btns = [...document.querySelectorAll('.fbtn')];
+    const projs = [...document.querySelectorAll('.proj')];
+    const groups = [...document.querySelectorAll('.employer')];
+    const NEEDLES = {"angular": ["Angular"], "typescript": ["TypeScript"], "net": [".NET", "ASP.NET", "C#"], "sql": ["SQL", "PostgreSQL", "MySQL"], "azure": ["Azure"], "php": ["PHP"]};
+    btns.forEach(b => b.addEventListener('click', () => {
+      const f = b.dataset.f;
+      btns.forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+      projs.forEach(p => {
+        const show = f === 'all' || p.dataset.tags.split(' ').includes(f);
+        p.hidden = !show;
+        if (show) p.classList.add('in');
+        p.querySelectorAll('.chips li').forEach(li => li.classList.toggle('hit', f !== 'all' && NEEDLES[f].some(n => li.textContent.includes(n))));
+      });
+      groups.forEach(g => g.classList.toggle('empty', !g.querySelector('.proj:not([hidden])')));
+      document.getElementById('count').textContent = projs.filter(p => !p.hidden).length;
+    }));
+  })();
+</script>
+</body>
+</html>

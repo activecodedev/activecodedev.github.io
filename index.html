@@ -106,6 +106,7 @@
   .icon-btn svg { width: 18px; height: 18px; }
   .lang-btn { font: 600 .78rem var(--sans); letter-spacing: .04em; }
   .lang-btn:hover { transform: none; }
+  .more { margin: 2rem 0 0; }
   .sun { display: none; }
   :root[data-theme="dark"] .sun { display: block; }
   :root[data-theme="dark"] .moon { display: none; }
@@ -282,7 +283,8 @@
   <div class="wrap">
     <a class="logo" href="#top">Rafał<span>.</span>Pachnicki</a>
     <nav aria-label="Nawigacja główna" data-en-aria="Main navigation">
-      <a href="#doswiadczenie" data-en="Experience">Doświadczenie</a>
+      <a href="#doswiadczenie" class="hide-sm" data-en="Experience">Doświadczenie</a>
+      <a href="projekty.html" data-en="Projects">Projekty</a>
       <a href="#umiejetnosci" class="hide-sm" data-en="Skills">Umiejętności</a>
       <a href="#kontakt" class="hide-sm" data-en="Contact">Kontakt</a>
       <button class="icon-btn lang-btn" id="lang" type="button" lang="en" aria-label="Switch to English" data-en-aria="Przełącz na polski" data-en="PL">EN</button>
@@ -381,7 +383,16 @@
             <ul><li data-en="Online survey builder plus a survey data analysis and reporting system">Aplikacja do tworzenia ankiet internetowych oraz system do analizy danych z ankiet i generowania raportów</li></ul>
           </div>
         </li>
+        <li class="job reveal">
+          <div class="when" data-en="<b>2011</b>July 2011 – September 2011"><b>2011</b>lipiec 2011 – wrzesień 2011</div>
+          <div>
+            <h3>Software Developer</h3>
+            <p class="company">Siemens IT Solutions and Services</p>
+            <ul><li data-en="Internal .NET applications and tools: a server log parser and a RIA app for product complaints with reporting and document generation">Aplikacje i narzędzia wewnętrzne w .NET: parser logów serwera oraz aplikacja RIA do zgłaszania reklamacji produktów z modułem raportów i dokumentów</li></ul>
+          </div>
+        </li>
       </ol>
+      <p class="more reveal"><a class="btn btn-ghost" href="projekty.html"><span data-en="See all projects in detail">Zobacz szczegóły wszystkich projektów</span> <span aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
